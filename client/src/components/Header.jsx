@@ -11,7 +11,9 @@ export default function Header() {
         to="/"
         className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold"
       >
-        Aarambhik
+        <span className="px-2 py-1 gap-2 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg text-white">
+          <span style={{ fontSize: "80%" }}>आ</span>arambhik
+        </span>
       </Link>
       <TextInput
         type="text"
@@ -36,13 +38,13 @@ export default function Header() {
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
-        <Navbar.Link active={path === "/"} as={'div'}>
+        <Navbar.Link active={path === "/"} as={"div"}>
           <Link to="/">Home</Link>
         </Navbar.Link>
-        <Navbar.Link active={path === "/investor"} as={'div'}>
+        <Navbar.Link active={path === "/investor"} as={"div"}>
           <Link to="/sign-up">Register as an Investor</Link>
         </Navbar.Link>
-        <Navbar.Link active={path === "/pitcher"} as={'div'}>
+        <Navbar.Link active={path === "/pitcher"} as={"div"}>
           <Link to="/sign-up-pitcher">Register as a Pitcher</Link>
         </Navbar.Link>
       </Navbar.Collapse>
