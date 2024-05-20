@@ -9,7 +9,7 @@ const Home4 = () => {
           Trusted Among Investors
           </div>
           <div className="text-xl">
-          BESTVANTAGE INVESTMENTS offers the comprehensive capabilities and deep industry knowledge necessary to help to make the most suitable decision for your investments needs. Want to experience the expertise of BESTVANTAGE INVESTMENTS for yourself? Give us a call today and lets discuss what we can do for you
+          Aarambhik offers the comprehensive capabilities and deep industry knowledge necessary to help to make the most suitable decision for your investments needs. Want to experience the expertise of Aarambhik investments for yourself? Give us a call today and lets discuss what we can do for you
           </div>
         </div>
         <div className="flex-[1]">

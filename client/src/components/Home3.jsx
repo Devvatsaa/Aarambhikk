@@ -9,7 +9,7 @@ const Home3 = () => {
             Stay Updated with Latest News of Startups
           </div>
           <div className="">
-            BESTVANTAGE INVESTMENTS brings all the latest stories and updates of
+            Aarambhik brings all the latest stories and updates of
             startups straight to you. As an investment guide, we strive to
             deliver content on the latest happening in the startup world. Stay
             informed - join us today.

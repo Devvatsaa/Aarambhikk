@@ -14,7 +14,7 @@ export default function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.email || !formData.password) {
+    if (!formData.email || !formData.password || !formData.role) {
       return setErrorMessage("Please fill out all fields.");
     }
     try {
@@ -32,13 +32,19 @@ export default function SignIn() {
       }
       setLoading(false);
       if (res.ok) {
-        navigate('/');
+        if (formData.role.toLowerCase() === "investor") {
+          navigate('/investor');
+        } else {
+          // Add navigation for other roles if necessary
+          navigate('/');
+        }
       }
     } catch (error) {
       setErrorMessage(error.message);
       setLoading(false);
     }
   };
+
   return (
     <div className="min-h-screen mt-20">
       <div className="flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5">
@@ -62,7 +68,6 @@ export default function SignIn() {
 
         <div className="flex-1">
           <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-           
             <div>
               <Label value="Your email" />
               <TextInput
@@ -78,6 +83,15 @@ export default function SignIn() {
                 type="password"
                 placeholder="*******"
                 id="password"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <Label value="Sign in as" />
+              <TextInput
+                type="text"
+                placeholder="Investor/Pitcher"
+                id="role"
                 onChange={handleChange}
               />
             </div>
@@ -97,7 +111,7 @@ export default function SignIn() {
             </Button>
           </form>
           <div className="flex gap-2 text-sm mt-5">
-            <span>Dont have an account?</span>
+            <span>Don't have an account?</span>
             <Link to="/sign-up" className="text-blue-500">
               Sign Up
             </Link>

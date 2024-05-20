@@ -15,7 +15,7 @@ export default function FooterCom() {
           <div className="mt-5">
             <Link to="/" className="font-bold dark:text-white text-4xl">
               <span className="px-2 py-1 gap-2 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg text-white">
-                <span style={{ fontSize: '80%' }}>आ</span>arambhik
+                <span style={{ fontSize: '80%' }}>आ</span>rambhik
               </span>
             </Link>
 

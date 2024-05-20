@@ -12,7 +12,7 @@ export default function Header() {
         className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold"
       >
         <span className="px-2 py-1 gap-2 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg text-white">
-          <span style={{ fontSize: "80%" }}>आ</span>arambhik
+          <span style={{ fontSize: "80%" }}>आ</span>rambhik
         </span>
       </Link>
       <TextInput
