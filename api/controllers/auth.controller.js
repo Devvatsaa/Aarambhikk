@@ -1,32 +1,37 @@
-import User from "../models/user.model.js";
+import Investor from "../models/investor.model.js";
+import Pitcher from "../models/pitcher.model.js";
 import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
 
 export const signup = async (req, res, next) => {
-  // console.log(req.body);
-  const { username, email, password } = req.body;
+  const { username, email, password, role } = req.body;
 
-  if (
-    !username ||
-    !email ||
-    !password ||
-    username === "" ||
-    email === "" ||
-    password === ""
-  ) {
+  if (!username || !email || !password || !role || username === "" || email === "" || password === "" || role === "") {
     next(errorHandler(400, "All fields are required!"));
   }
+
   const hashedPassword = bcryptjs.hashSync(password, 10);
 
-  const newUser = new User({
-    username,
-    email,
-    password: hashedPassword,
-  });
-
   try {
-    await newUser.save();
+    if (role.toLowerCase() === "investor") {
+      const newInvestor = new Investor({
+        username,
+        email,
+        password: hashedPassword,
+      });
+      await newInvestor.save();
+    } else if (role.toLowerCase() === "pitcher") {
+      const newPitcher = new Pitcher({
+        username,
+        email,
+        password: hashedPassword,
+      });
+      await newPitcher.save();
+    } else {
+      return next(errorHandler(400, "Invalid role provided!"));
+    }
+
     res.json("Signup successful!");
   } catch (error) {
     next(error);
@@ -34,20 +39,30 @@ export const signup = async (req, res, next) => {
 };
 
 export const signin = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, password, role } = req.body;
 
-  if (!email || !password || email === "" || password === "") {
+  if (!email || !password || !role || email === "" || password === "" || role === "") {
     return next(errorHandler(400, "Please fill out all fields."));
   }
 
   try {
-    const validUser = await User.findOne({ email });
+    let validUser;
+
+    if (role.toLowerCase() === "investor") {
+      validUser = await Investor.findOne({ email });
+    } else if (role.toLowerCase() === "pitcher") {
+      validUser = await Pitcher.findOne({ email });
+    } else {
+      return next(errorHandler(400, "Invalid role provided!"));
+    }
+
     if (!validUser) {
       return next(errorHandler(404, "User not found!"));
     }
+
     const validPassword = bcryptjs.compareSync(password, validUser.password);
     if (!validPassword) {
-     return next(errorHandler(400, "Invalid password!"));
+      return next(errorHandler(400, "Invalid password!"));
     }
 
     const token = jwt.sign(
@@ -56,7 +71,8 @@ export const signin = async (req, res, next) => {
       },
       process.env.JWT_SECRET
     );
-    const {password:pass, ...rest}=validUser._doc;
+
+    const { password: pass, ...rest } = validUser._doc;
     res
       .status(200)
       .cookie("access_token", token, {

@@ -33,7 +33,7 @@ export default function SignIn() {
       setLoading(false);
       if (res.ok) {
         if (formData.role.toLowerCase() === "investor") {
-          navigate('/investor');
+          navigate('/sign-in');
         } else {
           // Add navigation for other roles if necessary
           navigate('/');
